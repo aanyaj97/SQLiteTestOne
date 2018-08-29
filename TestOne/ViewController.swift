@@ -15,8 +15,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Path.fileURL
-        
+        let db = openConnection()
+        if let database = db {
+            createTable(name: "Name", db: database)
+        } else {
+            print("Database connection not established; cannot add table")
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 

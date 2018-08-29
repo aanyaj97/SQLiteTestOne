@@ -57,12 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				38E4B4B32134F6F3009B983E /* AppDelegate.swift */,
+				38E4B4C52134F70D009B983E /* SQLiteInterface.swift */,
 				38E4B4B52134F6F3009B983E /* ViewController.swift */,
 				38E4B4B72134F6F3009B983E /* Main.storyboard */,
 				38E4B4BA2134F6F3009B983E /* Assets.xcassets */,
 				38E4B4BC2134F6F3009B983E /* LaunchScreen.storyboard */,
 				38E4B4BF2134F6F3009B983E /* Info.plist */,
-				38E4B4C52134F70D009B983E /* SQLiteInterface.swift */,
 			);
 			path = TestOne;
 			sourceTree = "<group>";

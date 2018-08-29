@@ -26,5 +26,23 @@ func openConnection() -> OpaquePointer? {
 }
 
 
+func createTable(name: String, db: OpaquePointer) {
+    let stringStatement = "CREATE TABLE IF NOT EXISTS " + name + " ( \n"
+        + "Id INT PRIMARY KEY NOT NULL,\n"
+        + "NAME CHAR(255));"
+    var createTableStatement: OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, stringStatement, -1, &createTableStatement, nil) == SQLITE_OK {
+        if sqlite3_step(createTableStatement) == SQLITE_DONE {
+            print("\(name) table created.")
+        } else {
+            print("\(name) table was not created.")
+        }
+    } else {
+        print("The table already exists or there is an error in the SQLite code.")
+    }
+    sqlite3_finalize(createTableStatement)
+}
+
+
 
 
