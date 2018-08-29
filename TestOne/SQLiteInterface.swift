@@ -64,6 +64,23 @@ func insertData(table: String, num: Int32, desc: NSString, db: OpaquePointer) {
     sqlite3_finalize(insertPointer)
 }
 
+func returnData(table: String, db: OpaquePointer) -> [Routine] {
+    var routineResult: [Routine] = []
+    let returnStatement = "SELECT * FROM " + table + ";"
+    var returnPointer: OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, returnStatement, -2, &returnPointer,  nil) == SQLITE_OK {
+        while sqlite3_step(returnPointer) == SQLITE_ROW {
+            let id = sqlite3_column_int(returnPointer, 0)
+            let cText = sqlite3_column_text(returnPointer, 1)
+            let name = String(cString: cText!)
+            routineResult.append(Routine(id: Int(id), name: name))
+        }
+    } else {
+        print("SELECT statement could not be prepared.")
+    }
+    sqlite3_finalize(returnPointer)
+    return routineResult
+}
 
 
 
