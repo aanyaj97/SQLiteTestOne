@@ -21,6 +21,11 @@ class ViewController: UIViewController {
         } else {
             print("Database connection not established; cannot add table")
         }
+        let dataOne = Routine(id: 1, name: "Stretch")
+        
+        if let database = db {
+            insertData(table: "Name", num: Int32(dataOne.id), desc: dataOne.name as NSString, db: database)
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 

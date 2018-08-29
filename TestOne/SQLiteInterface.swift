@@ -30,9 +30,9 @@ func createTable(name: String, db: OpaquePointer) {
     let stringStatement = "CREATE TABLE IF NOT EXISTS " + name + " ( \n"
         + "Id INT PRIMARY KEY NOT NULL,\n"
         + "NAME CHAR(255));"
-    var createTableStatement: OpaquePointer? = nil
-    if sqlite3_prepare_v2(db, stringStatement, -1, &createTableStatement, nil) == SQLITE_OK {
-        if sqlite3_step(createTableStatement) == SQLITE_DONE {
+    var createPointer: OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, stringStatement, -1, &createPointer, nil) == SQLITE_OK {
+        if sqlite3_step(createPointer) == SQLITE_DONE {
             print("\(name) table created.")
         } else {
             print("\(name) table was not created.")
@@ -40,7 +40,28 @@ func createTable(name: String, db: OpaquePointer) {
     } else {
         print("The table already exists or there is an error in the SQLite code.")
     }
-    sqlite3_finalize(createTableStatement)
+    sqlite3_finalize(createPointer)
+}
+
+func insertData(table: String, num: Int32, desc: NSString, db: OpaquePointer) {
+    let stringStatement = "INSERT OR IGNORE INTO " + table + " (Id, Name) Values (?, ?)"
+    var insertPointer: OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, stringStatement, -1, &insertPointer, nil) == SQLITE_OK {
+        let id = num
+        let name = desc
+        
+        sqlite3_bind_int(insertPointer, 1, id)
+        sqlite3_bind_text(insertPointer, 2, name.utf8String, -1, nil)
+        
+        if sqlite3_step(insertPointer) == SQLITE_DONE {
+            print("Sucessfully inserted (\(id), \(name)) into table \(table).")
+        } else {
+            print("Data could not be inserted.")
+        }
+    } else {
+        print("INSERT statement could not be prepared")
+    }
+    sqlite3_finalize(insertPointer)
 }
 
 
