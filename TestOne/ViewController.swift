@@ -25,7 +25,12 @@ class ViewController: UIViewController {
                 print(i.id)
                 print(i.name)
             }
-            
+            deleteData(table: "Name", id: 1, db: database)
+            let result2 = returnData(table: "Name", db: database)
+            for i in result2 {
+                print(i.id)
+                print(i.name)
+            }
         } else {
             print("Database connection not established; cannot add table")
         }

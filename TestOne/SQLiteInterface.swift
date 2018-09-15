@@ -82,5 +82,21 @@ func returnData(table: String, db: OpaquePointer) -> [Routine] {
     return routineResult
 }
 
+func deleteData(table: String, id: Int32, db: OpaquePointer) {
+    let deleteStatement = "DELETE FROM " + table + " WHERE Id = " + String(id) + ";"
+    var deletePointer: OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, deleteStatement, -1, &deletePointer, nil) == SQLITE_OK {
+        if sqlite3_step(deletePointer) == SQLITE_DONE {
+          print("Row deleted.")
+        } else {
+            print("Row could not be deleted.")
+        }
+    } else {
+        print("DELETE statement could not be prepared.")
+    }
+    sqlite3_finalize(deletePointer)
+}
 
-
+func updateData(table: String, id: Int32, db: OpaquePointer) {
+    
+}
