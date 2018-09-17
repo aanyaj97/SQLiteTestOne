@@ -97,6 +97,22 @@ func deleteData(table: String, id: Int32, db: OpaquePointer) {
     sqlite3_finalize(deletePointer)
 }
 
-func updateData(table: String, id: Int32, db: OpaquePointer) {
-    
+func updateData(name: String, table: String, id: Int32, db: OpaquePointer) {
+    let updateStatement = "UPDATE " + table + " SET Name = '" + name + "' WHERE Id = " + String(id) + ";"
+    var updatePointer: OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, updateStatement, -1, &updatePointer, nil) == SQLITE_OK {
+        if sqlite3_step(updatePointer) == SQLITE_DONE {
+            print("Successfully updated row.")
+        } else {
+            print("Row could not be updated.")
+        }
+    } else {
+        print("UPDATE statement could not be prepared.")
+    }
+    sqlite3_finalize(updatePointer)
 }
+
+
+//set up error handling
+//maybe just one function to output the relevant string: switch case
+//close connection !! 
