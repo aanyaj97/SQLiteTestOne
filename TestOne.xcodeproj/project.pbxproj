@@ -64,8 +64,8 @@
 			children = (
 				38E4B4B32134F6F3009B983E /* AppDelegate.swift */,
 				38E4B4C721363F90009B983E /* RoutineClass.swift */,
-				38E4B4C52134F70D009B983E /* SQLiteInterface.swift */,
 				38A9936521506618006DCECB /* SQLiteDataControl.swift */,
+				38E4B4C52134F70D009B983E /* SQLiteInterface.swift */,
 				38E4B4B52134F6F3009B983E /* ViewController.swift */,
 				38E4B4B72134F6F3009B983E /* Main.storyboard */,
 				38A9936121506072006DCECB /* RoutineTableViewController.swift */,

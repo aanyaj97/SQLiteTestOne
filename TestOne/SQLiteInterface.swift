@@ -27,7 +27,7 @@ func openConnection() -> OpaquePointer? {
 
 
 func createTable(name: String, db: OpaquePointer) {
-    let stringStatement = "CREATE TABLE IF NOT EXISTS " + name + " ( \n"
+    let stringStatement = "CREATE TABLE IF NOT EXISTS [" + name + "] ( \n"
         + "Id INT PRIMARY KEY NOT NULL,\n"
         + "NAME CHAR(255));"
     var createPointer: OpaquePointer? = nil
@@ -43,8 +43,56 @@ func createTable(name: String, db: OpaquePointer) {
     sqlite3_finalize(createPointer)
 }
 
+func deleteTable(name: String, db: OpaquePointer) {
+    let deleteStatement = "DROP TABLE IF EXISTS [" + name + "]"
+    var deletePointer : OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, deleteStatement, -1, &deletePointer, nil) == SQLITE_OK {
+        if sqlite3_step(deletePointer) == SQLITE_DONE {
+            print("\(name) table sucessfully deleted")
+        } else {
+            print("\(name) could not be deleted")
+        }
+    } else {
+        print("Delete statement could not be prepared.")
+    }
+    sqlite3_finalize(deletePointer)
+}
+
+func returnTables(db: OpaquePointer) -> [String] {
+    var tables: [String] = []
+    let returnStatement = "SELECT name FROM sqlite_master where type = 'table'"
+    var returnPointer : OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, returnStatement, -1, &returnPointer, nil) == SQLITE_OK {
+        while sqlite3_step(returnPointer) == SQLITE_ROW {
+            let cText = sqlite3_column_text(returnPointer, 0)
+            let title = String(cString: cText!)
+            tables.append(title)
+        }
+    }  else {
+        print("Table names could not be returned.")
+    }
+    sqlite3_finalize(returnPointer)
+    return tables
+}
+
+func renameTable(oldName: String, newName: String, db: OpaquePointer?) {
+    let renameStatement = "ALTER TABLE [" + oldName + "] \n"
+        + "RENAME TO [" + newName + "];"
+    var renamePointer: OpaquePointer? = nil
+    if sqlite3_prepare_v2(db, renameStatement, -1, &renamePointer, nil) == SQLITE_OK {
+        if sqlite3_step(renamePointer) == SQLITE_DONE {
+            print("\(oldName) sucessfully renamed as \(newName)")
+        } else {
+            print("Table could not be renamed.")
+        }
+    } else {
+        print("Rename statement could not be prepared.")
+    }
+    sqlite3_finalize(renamePointer)
+}
+
 func insertData(table: String, num: Int32, desc: NSString, db: OpaquePointer) {
-    let stringStatement = "INSERT OR IGNORE INTO " + table + " (Id, Name) Values (?, ?)"
+    let stringStatement = "INSERT OR IGNORE INTO [" + table + "] (Id, Name) Values (?, ?)"
     var insertPointer: OpaquePointer? = nil
     if sqlite3_prepare_v2(db, stringStatement, -1, &insertPointer, nil) == SQLITE_OK {
         let id = num
@@ -66,7 +114,7 @@ func insertData(table: String, num: Int32, desc: NSString, db: OpaquePointer) {
 
 func returnData(table: String, db: OpaquePointer) -> [Routine] {
     var routineResult: [Routine] = []
-    let returnStatement = "SELECT * FROM " + table + ";"
+    let returnStatement = "SELECT * FROM [" + table + "];"
     var returnPointer: OpaquePointer? = nil
     if sqlite3_prepare_v2(db, returnStatement, -2, &returnPointer,  nil) == SQLITE_OK {
         while sqlite3_step(returnPointer) == SQLITE_ROW {
@@ -83,7 +131,7 @@ func returnData(table: String, db: OpaquePointer) -> [Routine] {
 }
 
 func deleteData(table: String, id: Int32, db: OpaquePointer) {
-    let deleteStatement = "DELETE FROM " + table + " WHERE Id = " + String(id) + ";"
+    let deleteStatement = "DELETE FROM [" + table + "] WHERE Id = " + String(id) + ";"
     var deletePointer: OpaquePointer? = nil
     if sqlite3_prepare_v2(db, deleteStatement, -1, &deletePointer, nil) == SQLITE_OK {
         if sqlite3_step(deletePointer) == SQLITE_DONE {
@@ -98,7 +146,7 @@ func deleteData(table: String, id: Int32, db: OpaquePointer) {
 }
 
 func updateData(name: String, table: String, id: Int32, db: OpaquePointer) {
-    let updateStatement = "UPDATE " + table + " SET Name = '" + name + "' WHERE Id = " + String(id) + ";"
+    let updateStatement = "UPDATE [" + table + "] SET Name = '" + name + "' WHERE Id = " + String(id) + ";"
     var updatePointer: OpaquePointer? = nil
     if sqlite3_prepare_v2(db, updateStatement, -1, &updatePointer, nil) == SQLITE_OK {
         if sqlite3_step(updatePointer) == SQLITE_DONE {
@@ -111,6 +159,7 @@ func updateData(name: String, table: String, id: Int32, db: OpaquePointer) {
     }
     sqlite3_finalize(updatePointer)
 }
+
 
 
 //set up error handling

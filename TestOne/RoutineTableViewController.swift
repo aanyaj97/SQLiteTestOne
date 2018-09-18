@@ -10,43 +10,42 @@ import UIKit
 
 class RoutineTableViewController: UITableViewController {
     
-    var data = establishConnection()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    var data = establishConnection()
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return data.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        var rows: Int = 0
+        
+        if section < data.count {
+            rows = data[section].1.count
+        }
+        return rows
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell", for: indexPath)
+        let routine = indexPath.section
+        let step = indexPath.row
 
-        cell.textLabel?.text = "Section \(indexPath.section) Task: \(data[indexPath.row].name)" //will change the section thing to the table name at top
+        cell.textLabel?.text = "Routine: \(data[routine].0) - Task: \(data[routine].1[step].name)" //will change the section thing to the table name at top
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section \(section)"
+        let routine = data[section].0
+        return routine
     }
 }
