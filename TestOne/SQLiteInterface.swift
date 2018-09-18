@@ -164,4 +164,7 @@ func updateData(name: String, table: String, id: Int32, db: OpaquePointer) {
 
 //set up error handling
 //maybe just one function to output the relevant string: switch case
-//close connection !! 
+//close connection !!
+
+
+//ello
