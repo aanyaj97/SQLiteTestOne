@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38A9936221506072006DCECB /* RoutineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A9936121506072006DCECB /* RoutineTableViewController.swift */; };
 		38A9936621506618006DCECB /* SQLiteDataControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A9936521506618006DCECB /* SQLiteDataControl.swift */; };
 		38E4B4B42134F6F3009B983E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E4B4B32134F6F3009B983E /* AppDelegate.swift */; };
 		38E4B4B62134F6F3009B983E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E4B4B52134F6F3009B983E /* ViewController.swift */; };
@@ -19,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		38A9936121506072006DCECB /* RoutineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewController.swift; sourceTree = "<group>"; };
 		38A9936521506618006DCECB /* SQLiteDataControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDataControl.swift; sourceTree = "<group>"; };
 		38E4B4B02134F6F3009B983E /* TestOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E4B4B32134F6F3009B983E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +41,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38755A912151B7A800CC3630 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				38E4B4B32134F6F3009B983E /* AppDelegate.swift */,
+				38E4B4C721363F90009B983E /* RoutineClass.swift */,
+				38E4B4C52134F70D009B983E /* SQLiteInterface.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		38755A922151B7BD00CC3630 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				38E4B4B52134F6F3009B983E /* ViewController.swift */,
+				38E4B4BC2134F6F3009B983E /* LaunchScreen.storyboard */,
+				38E4B4B72134F6F3009B983E /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		38755A942151B7CD00CC3630 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				38A9936521506618006DCECB /* SQLiteDataControl.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		38E4B4A72134F6F3009B983E = {
 			isa = PBXGroup;
 			children = (
@@ -62,15 +88,10 @@
 		38E4B4B22134F6F3009B983E /* TestOne */ = {
 			isa = PBXGroup;
 			children = (
-				38E4B4B32134F6F3009B983E /* AppDelegate.swift */,
-				38E4B4C721363F90009B983E /* RoutineClass.swift */,
-				38A9936521506618006DCECB /* SQLiteDataControl.swift */,
-				38E4B4C52134F70D009B983E /* SQLiteInterface.swift */,
-				38E4B4B52134F6F3009B983E /* ViewController.swift */,
-				38E4B4B72134F6F3009B983E /* Main.storyboard */,
-				38A9936121506072006DCECB /* RoutineTableViewController.swift */,
+				38755A912151B7A800CC3630 /* Models */,
+				38755A922151B7BD00CC3630 /* Views */,
+				38755A942151B7CD00CC3630 /* Controllers */,
 				38E4B4BA2134F6F3009B983E /* Assets.xcassets */,
-				38E4B4BC2134F6F3009B983E /* LaunchScreen.storyboard */,
 				38E4B4BF2134F6F3009B983E /* Info.plist */,
 			);
 			path = TestOne;
@@ -153,7 +174,6 @@
 				38E4B4B62134F6F3009B983E /* ViewController.swift in Sources */,
 				38A9936621506618006DCECB /* SQLiteDataControl.swift in Sources */,
 				38E4B4B42134F6F3009B983E /* AppDelegate.swift in Sources */,
-				38A9936221506072006DCECB /* RoutineTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
