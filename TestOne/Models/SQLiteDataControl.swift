@@ -22,4 +22,5 @@ func establishConnection() -> [(String,[Routine])]  {
     return routines
 }
 
-
+//going to want to instatiate an 'updateConnection' func to trigger after all changes to ensure tables display up to date information
+//also going to want to create functions for table content that can be called in the initial methods to avoid cluttering VC
