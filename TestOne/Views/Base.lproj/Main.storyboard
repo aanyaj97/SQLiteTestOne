@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bu8-I4-3A8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4QU-1l-Adn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -48,6 +48,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="a9c-Oi-Fe3"/>
                     </view>
+                    <navigationItem key="navigationItem" id="hYP-j8-L4p"/>
                     <connections>
                         <outlet property="routineTable" destination="keu-4E-6eb" id="qvr-ll-Wat"/>
                         <segue destination="H6Z-jj-Wy4" kind="show" identifier="stepsSegue" id="3Kv-9M-DVV"/>
@@ -109,14 +110,30 @@
                         <viewLayoutGuide key="safeArea" id="DIW-tX-W6c"/>
                     </view>
                     <connections>
-                        <outlet property="name" destination="TlL-XZ-ecH" id="thw-fH-tU8"/>
                         <outlet property="stepsTable" destination="pk9-nd-hY9" id="iW0-bu-2EP"/>
+                        <outlet property="stepsTitle" destination="TlL-XZ-ecH" id="Ywf-Vl-9Yr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x9L-98-ksv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RKe-Da-hy0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-95.200000000000003" y="142.57871064467767"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qnW-gh-k3G">
+            <objects>
+                <navigationController id="4QU-1l-Adn" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="M2X-pW-Ebl">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Bu8-I4-3A8" kind="relationship" relationship="rootViewController" id="dPs-IG-jyP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UpE-WI-Cg0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1734" y="143"/>
         </scene>
     </scenes>
 </document>

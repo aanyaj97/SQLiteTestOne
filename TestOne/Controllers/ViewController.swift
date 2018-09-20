@@ -46,10 +46,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let svc = storyboard?.instantiateViewController(withIdentifier: "StepsViewController") as? StepsViewController {
+            svc.routineNum = indexPath.section
             navigationController?.pushViewController(svc, animated: true)
-            svc.index = indexPath.section
-            performSegue(withIdentifier: "stepsSegue", sender: self)
-            
             }
         }
     

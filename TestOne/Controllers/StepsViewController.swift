@@ -10,15 +10,17 @@ import UIKit
 
 class StepsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var name: UILabel!
+
+    @IBOutlet weak var stepsTitle: UILabel!
     @IBOutlet weak var stepsTable: UITableView!
 
-    var index: Int?
+    var routineNum: Int?
     var data = establishConnection()
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var num = 0
-        if let routineNumber = index {
+        if let routineNumber = routineNum {
             num = data[routineNumber].1.count
         }
         return num
@@ -26,7 +28,7 @@ class StepsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StepNameCell", for: indexPath)
-        if let routineNumber = index {
+        if let routineNumber = routineNum {
             cell.textLabel?.text = "\(data[routineNumber].1[indexPath.row].name)"
         }
         return cell
@@ -34,8 +36,7 @@ class StepsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
 
     override func viewDidLoad() {
-        
-        if let routineNumber = index {
+        if let routineNumber = routineNum {
             title = data[routineNumber].0
         }
         
