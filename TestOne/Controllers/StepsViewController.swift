@@ -8,18 +8,45 @@
 
 import UIKit
 
-class StepsViewController: UIViewController {
+class StepsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var stepsTable: UITableView!
+
+    var index: Int?
+    var data = establishConnection()
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var num = 0
+        if let routineNumber = index {
+            num = data[routineNumber].1.count
+        }
+        return num
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StepNameCell", for: indexPath)
+        if let routineNumber = index {
+            cell.textLabel?.text = "\(data[routineNumber].1[indexPath.row].name)"
+        }
+        return cell
+    }
+    
 
     override func viewDidLoad() {
+        
+        if let routineNumber = index {
+            title = data[routineNumber].0
+        }
+        
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
 
     /*

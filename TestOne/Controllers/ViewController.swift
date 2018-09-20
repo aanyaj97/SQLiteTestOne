@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var routineTable: UITableView!
     
-    var data = establishConnection()
+    var data = establishConnection() //make this into a struct eventually
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return data.count
@@ -45,19 +45,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let destination = storyboard.instantiateViewController(withIdentifier: "StepsViewController") as! StepsViewController
-        navigationController?.pushViewController(destination, animated: true)
-        
-        performSegue(withIdentifier: "stepsSegue", sender: self)
-        
-        func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "stepsSegue" {
-                // Setup new view controller
+        if let svc = storyboard?.instantiateViewController(withIdentifier: "StepsViewController") as? StepsViewController {
+            navigationController?.pushViewController(svc, animated: true)
+            svc.index = indexPath.section
+            performSegue(withIdentifier: "stepsSegue", sender: self)
+            
             }
         }
-
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,3 +66,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 }
 
+extension ViewController {
+    @IBAction func backToRoutineViewController(_ segue: UIStoryboardSegue) {
+    }
+}
