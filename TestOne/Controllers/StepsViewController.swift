@@ -38,8 +38,8 @@ class StepsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         if let routineNumber = routineNum {
             title = data[routineNumber].0
+            self.stepsTitle.text = title
         }
-        
         super.viewDidLoad()
     }
 

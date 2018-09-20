@@ -16,37 +16,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var data = establishConnection() //make this into a struct eventually
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return data.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var rows: Int = 0
-        
-        if section < data.count {
-            rows = data[section].1.count
-        }
-        return rows
+        return data.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineNameCell", for: indexPath)
-        let routine = indexPath.section
-        let step = indexPath.row
+        let routine = indexPath.row
         
-        cell.textLabel?.text = "Routine: \(data[routine].0) - Task: \(data[routine].1[step].name)" //will change the section thing to the table name at top
+        cell.textLabel?.text = "Routine: \(data[routine].0)"
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let routine = data[section].0
-        return routine
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let svc = storyboard?.instantiateViewController(withIdentifier: "StepsViewController") as? StepsViewController {
-            svc.routineNum = indexPath.section
+            svc.routineNum = indexPath.row
             navigationController?.pushViewController(svc, animated: true)
             }
         }
