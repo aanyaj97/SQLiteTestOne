@@ -15,6 +15,7 @@ struct Path {
 
 
 func openConnection() -> OpaquePointer? {
+    // establish connection to database
     var db: OpaquePointer? = nil
     if sqlite3_open(Path.fileURL.path, &db) == SQLITE_OK {
         print("Connection to \(Path.fileURL) successfully opened")
@@ -27,6 +28,7 @@ func openConnection() -> OpaquePointer? {
 
 
 func createTable(name: String, db: OpaquePointer) {
+    // create a table
     let stringStatement = "CREATE TABLE IF NOT EXISTS [" + name + "] ( \n"
         + "Id INT PRIMARY KEY NOT NULL,\n"
         + "NAME CHAR(255));"
@@ -44,6 +46,7 @@ func createTable(name: String, db: OpaquePointer) {
 }
 
 func deleteTable(name: String, db: OpaquePointer) {
+    // delete a table
     let deleteStatement = "DROP TABLE IF EXISTS [" + name + "]"
     var deletePointer : OpaquePointer? = nil
     if sqlite3_prepare_v2(db, deleteStatement, -1, &deletePointer, nil) == SQLITE_OK {
@@ -59,6 +62,7 @@ func deleteTable(name: String, db: OpaquePointer) {
 }
 
 func returnTables(db: OpaquePointer) -> [String] {
+    // return table data
     var tables: [String] = []
     let returnStatement = "SELECT name FROM sqlite_master where type = 'table'"
     var returnPointer : OpaquePointer? = nil
@@ -76,6 +80,7 @@ func returnTables(db: OpaquePointer) -> [String] {
 }
 
 func renameTable(oldName: String, newName: String, db: OpaquePointer?) {
+    // change name of table
     let renameStatement = "ALTER TABLE [" + oldName + "] \n"
         + "RENAME TO [" + newName + "];"
     var renamePointer: OpaquePointer? = nil
@@ -92,6 +97,7 @@ func renameTable(oldName: String, newName: String, db: OpaquePointer?) {
 }
 
 func insertData(table: String, num: Int32, desc: NSString, db: OpaquePointer) {
+    // add step to table
     let stringStatement = "INSERT OR IGNORE INTO [" + table + "] (Id, Name) Values (?, ?)"
     var insertPointer: OpaquePointer? = nil
     if sqlite3_prepare_v2(db, stringStatement, -1, &insertPointer, nil) == SQLITE_OK {
@@ -113,6 +119,7 @@ func insertData(table: String, num: Int32, desc: NSString, db: OpaquePointer) {
 }
 
 func returnData(table: String, db: OpaquePointer) -> [Routine] {
+    // return steps from table
     var routineResult: [Routine] = []
     let returnStatement = "SELECT * FROM [" + table + "];"
     var returnPointer: OpaquePointer? = nil
@@ -131,6 +138,7 @@ func returnData(table: String, db: OpaquePointer) -> [Routine] {
 }
 
 func deleteData(table: String, id: Int32, db: OpaquePointer) {
+    // delete row from table
     let deleteStatement = "DELETE FROM [" + table + "] WHERE Id = " + String(id) + ";"
     var deletePointer: OpaquePointer? = nil
     if sqlite3_prepare_v2(db, deleteStatement, -1, &deletePointer, nil) == SQLITE_OK {
@@ -146,6 +154,7 @@ func deleteData(table: String, id: Int32, db: OpaquePointer) {
 }
 
 func updateData(name: String, table: String, id: Int32, db: OpaquePointer) {
+    // update row from table
     let updateStatement = "UPDATE [" + table + "] SET Name = '" + name + "' WHERE Id = " + String(id) + ";"
     var updatePointer: OpaquePointer? = nil
     if sqlite3_prepare_v2(db, updateStatement, -1, &updatePointer, nil) == SQLITE_OK {

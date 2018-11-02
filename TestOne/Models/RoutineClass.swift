@@ -11,9 +11,11 @@ import Foundation
 class Routine {
     var id: Int
     var name: String
+    var duration: Int?
 
-    init(id: Int, name: String) {
+    init(id: Int, name: String, duration: Int) {
         self.id = id
         self.name = name
+        self.duration = duration
     }
 }

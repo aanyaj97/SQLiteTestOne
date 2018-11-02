@@ -11,11 +11,12 @@ import Foundation
 let db = openConnection()
 
 func establishConnection() -> [(String,[Routine])]  {
+    //
     var routines : [(String,[Routine])] = []
     if let database = db {
         let names = returnTables(db: database)
-        for i in 0...(names.count-1) {
-            let title = names[i]
+        for name in names {
+            let title = name
             routines.append((title, returnData(table: title, db: database)))
         }
     }
